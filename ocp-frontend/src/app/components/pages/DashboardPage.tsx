@@ -3,9 +3,7 @@ import {
   monthlyProductionACS,
   monthlyProductionACP29,
   monthlyProductionACP54,
-} from "../DummyData";
-
-// { product: "ACS", site: "JFC1", monthly: 3200 },
+} from "../../DummyData";
 
 export default function Dashboard() {
   const filterMaxValueAcs = monthlyProductionACS.filter(
@@ -33,12 +31,12 @@ export default function Dashboard() {
         {productionSummary.map((ac) => (
           <div
             key={ac.name}
-            className="bg-background/10 px-10 py-5 rounded shadow-lg flex flex-col items-center gap-3 w-auto"
+            className="bg-gradient-to-b from-emerald-800 to-teal-900 px-10 py-5 rounded shadow-lg flex flex-col items-center gap-3 w-auto"
           >
-            <h1 className="text-xl text-background font-semibold">
+            <h1 className="text-xl text-foreground font-semibold">
               Total {ac.name}
             </h1>
-            <h1 className="text-black text-xl">{ac.valueTotal} T</h1>
+            <h1 className="text-gray-200 text-xl">{ac.valueTotal} T</h1>
           </div>
         ))}
       </div>

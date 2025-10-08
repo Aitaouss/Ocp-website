@@ -27,67 +27,90 @@ export default function LayoutComponent({
     {
       name: "Dashboard",
       key: "dashboard",
-      icon: null,
+      icon: <LayoutDashboard size={20} />,
     },
     {
       name: "Production",
       key: "production",
-      icon: null,
+      icon: <Factory size={20} />,
     },
     {
-      name: "Ferrtilizer",
+      name: "Fertilizer",
       key: "ferrtilizer",
-      icon: null,
+      icon: <FlaskConical size={20} />,
     },
     {
       name: "Stocks",
       key: "stocks",
-      icon: null,
+      icon: <Boxes size={20} />,
     },
     {
       name: "Transfers",
       key: "transfers",
-      icon: null,
+      icon: <ArrowLeftRight size={20} />,
     },
     {
-      name: "Vessell",
+      name: "Vessel",
       key: "vessell",
-      icon: null,
+      icon: <Ship size={20} />,
     },
     {
       name: "Scenarios",
       key: "scenarios",
-      icon: null,
+      icon: <Workflow size={20} />,
     },
     {
       name: "Admin",
       key: "admin",
-      icon: null,
+      icon: <Settings size={20} />,
     },
   ];
   return (
-    <div className="h-full bg-foreground flex flex-col items-center w-[200px] gap-10 border-r border-background shadow-lg">
-      <div className="flex items-center justify-center px-10 mt-10">
-        <Image src={"/LogoWhite.png"} alt="logo" width={50} height={50} />
-        {/* <h1 className="text-background font-semibold ">Dashboard</h1> */}
+    <div className="h-full bg-gradient-to-b from-emerald-800 to-teal-900 flex flex-col w-[260px] shadow-2xl">
+      {/* Logo Section */}
+      <div className="flex flex-col items-center justify-center py-8 border-b border-white/10">
+        <div className="bg-white/10 backdrop-blur-sm p-4 rounded-2xl mb-3 shadow-lg">
+          <Image src={"/LogoWhite.png"} alt="logo" width={50} height={50} />
+        </div>
+        <h1 className="text-white font-bold text-lg tracking-wide">
+          OCP Dashboard
+        </h1>
+        <p className="text-emerald-200/60 text-xs mt-1">Management Portal</p>
       </div>
-      <div className="flex flex-col w-full transiton-all duration-300">
+
+      {/* Navigation Items */}
+      <div className="flex flex-col gap-1 p-4 flex-1 overflow-y-auto">
         {items.map((item) => (
-          <div className="flex items-center px-2 gap-1" key={item.key}>
-            {item.icon}
-            <div
-              key={item.key}
-              onClick={() => handleItemClick(item.key)}
-              className={` w-full cursor-pointer py-2 rounded ${
+          <button
+            key={item.key}
+            onClick={() => handleItemClick(item.key)}
+            className={`
+              cursor-pointer flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group
+              ${
                 itemActive === item.key
-                  ? "border-r-4 border-background text-background font-semibold"
-                  : "text-black hover:bg-gray-100"
+                  ? "bg-white text-emerald-900 shadow-lg scale-105"
+                  : "text-white/80 hover:bg-white/10 hover:text-white hover:translate-x-1"
+              }
+            `}
+          >
+            <span
+              className={`transition-transform duration-300 ${
+                itemActive === item.key ? "scale-110" : "group-hover:scale-110"
               }`}
             >
-              {item.name}
-            </div>
-          </div>
+              {item.icon}
+            </span>
+            <span className="font-medium text-sm">{item.name}</span>
+          </button>
         ))}
+      </div>
+
+      {/* Footer */}
+      <div className="p-4 border-t border-white/10">
+        <div className="bg-white/5 backdrop-blur-sm rounded-lg p-3 text-center">
+          <p className="text-emerald-200/60 text-xs">v1.0.0</p>
+          <p className="text-emerald-200/40 text-xs mt-1">© 2025 OCP Group</p>
+        </div>
       </div>
     </div>
   );
