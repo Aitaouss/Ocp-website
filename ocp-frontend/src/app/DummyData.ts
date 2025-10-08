@@ -12,7 +12,7 @@ export const monthlyProductionACS = [
   { product: "ACS", site: "JFC5", monthly: 3500 },
   { product: "ACS", site: "PMP", monthly: 3000 },
   { product: "ACS", site: "IMACID", monthly: 3100 },
-  { product: "ACS", site: "JL", monthly: 2900 },
+  { product: "ACS", site: "JLN", monthly: 2900 },
 ];
 
 export const monthlyProductionACP29 = [
@@ -23,7 +23,7 @@ export const monthlyProductionACP29 = [
   { product: "ACP29", site: "JFC5", monthly: 950 },
   { product: "ACP29", site: "PMP", monthly: 800 },
   { product: "ACP29", site: "IMACID", monthly: 850 },
-  { product: "ACP29", site: "JL", monthly: 700 },
+  { product: "ACP29", site: "JLN", monthly: 700 },
 ];
 
 export const monthlyProductionACP54 = [
@@ -34,5 +34,5 @@ export const monthlyProductionACP54 = [
   { product: "ACP54", site: "JFC5", monthly: 650 },
   { product: "ACP54", site: "PMP", monthly: 550 },
   { product: "ACP54", site: "IMACID", monthly: 600 },
-  { product: "ACP54", site: "JL", monthly: 450 },
+  { product: "ACP54", site: "JLN", monthly: 450 },
 ];
