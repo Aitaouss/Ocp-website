@@ -8,6 +8,17 @@ export default function LoginPage() {
   const [windowSize, setWindowSize] = useState(0);
 
   useEffect(() => {
+    const startFetch = async () => {
+      const res = await fetch("http://localhost:5000/user");
+
+      const data = await res.json();
+
+      console.log(data);
+    };
+    startFetch();
+  }, [hidePassword]);
+
+  useEffect(() => {
     function handleResize() {
       setWindowSize(window.innerWidth);
     }
