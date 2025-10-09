@@ -67,6 +67,7 @@ export default function LayoutComponent({
     { name: "ACS", key: "production-acs" },
     { name: "ACP29", key: "production-acp29" },
     { name: "ACP54", key: "production-acp54" },
+    { name: "Engrais", key: "production-engrais" },
   ];
 
   const SettingsItems = [

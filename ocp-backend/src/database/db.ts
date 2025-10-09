@@ -28,6 +28,25 @@ export const initializeDatabase = () => {
       )
     `);
 
+    db.run(`
+        CREATE TABLE IF NOT EXISTS Productions (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT NOT NULL,
+          user_id INTEGER NOT NULL,
+          FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+    `);
+
+    db.run(`
+        CREATE TABLE IF NOT EXISTS ProductionValues (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          production_id INTEGER NOT NULL,
+          sector TEXT NOT NULL,
+          value REAL NOT NULL,
+          FOREIGN KEY (production_id) REFERENCES Productions(id)
+    )
+    `);
+
     console.log("Database tables initialized");
   });
 };

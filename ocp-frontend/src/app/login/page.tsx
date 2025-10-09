@@ -3,14 +3,32 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { authAPI } from "@/lib/api";
+import Loading from "../components/Loading";
 
 export default function LoginPage() {
   const [hidePassword, setHidePassword] = useState(true);
   const [windowSize, setWindowSize] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loadingAuth, setLoadingAuth] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const startCheck = async () => {
+      try {
+        await authAPI.getCurrentUser();
+        window.location.href = "/dashboard";
+      } catch (err: any) {
+        setLoadingAuth(false);
+      }
+    };
+    startCheck();
+  });
+
+  if (loadingAuth) {
+    return <Loading />;
+  }
 
   useEffect(() => {
     function handleResize() {

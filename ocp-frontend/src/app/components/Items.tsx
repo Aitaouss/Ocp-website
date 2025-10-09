@@ -13,6 +13,7 @@ import TransferPage from "./pages/TransferPage";
 import { useEffect, useState } from "react";
 import { authAPI } from "@/lib/api";
 import Loading from "./Loading";
+import EngraisPage from "./pages/EngraisPage";
 export default function Items() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -53,6 +54,7 @@ export default function Items() {
           {itemActive === "navires" && <NaviresPage />}
           {itemActive === "stocks" && <StockPage />}
           {itemActive === "transfers" && <TransferPage />}
+          {itemActive === "engrais" && <EngraisPage />}
         </div>
       </div>
     </>
