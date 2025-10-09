@@ -3,15 +3,13 @@
 import { useState } from "react";
 import LayoutComponent from "./LayoutComponent";
 import Dashboard from "./pages/DashboardPage";
-import FerrtilizerPage from "./pages/FertilizerPage";
+import NaviresPage from "./pages/NaviresPage";
 import ProductionPage from "./pages/ProductionPage";
 import ProductionACSPage from "./pages/ProductionACSPage";
 import ProductionACP29Page from "./pages/ProductionACP29Page";
 import ProductionACP54Page from "./pages/ProductionACP54Page";
 import StockPage from "./pages/StockPage";
 import TransferPage from "./pages/TransferPage";
-import VesselPage from "./pages/VesselPage";
-import SenariosPage from "./pages/ScenariosPage";
 import AdminPage from "./pages/AdminPage";
 
 export default function Items() {
@@ -32,11 +30,9 @@ export default function Items() {
           {itemActive === "production-acs" && <ProductionACSPage />}
           {itemActive === "production-acp29" && <ProductionACP29Page />}
           {itemActive === "production-acp54" && <ProductionACP54Page />}
-          {itemActive === "ferrtilizer" && <FerrtilizerPage />}
+          {itemActive === "navires" && <NaviresPage />}
           {itemActive === "stocks" && <StockPage />}
           {itemActive === "transfers" && <TransferPage />}
-          {itemActive === "vessell" && <VesselPage />}
-          {itemActive === "scenarios" && <SenariosPage />}
           {itemActive === "admin" && <AdminPage />}
         </div>
       </div>

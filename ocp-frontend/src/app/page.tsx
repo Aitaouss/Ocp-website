@@ -1,8 +1,7 @@
 "use client";
-import Image from "next/image";
 
-const goDashboard = () => {
-  window.location.href = "/dashboard";
+const GoLogin = () => {
+  window.location.href = "/login";
 };
 
 export default function Home() {
@@ -50,11 +49,11 @@ export default function Home() {
 
         {/* CTA Button */}
         <button
-          onClick={goDashboard}
+          onClick={GoLogin}
           className="cursor-pointer group relative px-12 py-5 bg-white text-emerald-900 rounded-2xl font-semibold text-lg hover:bg-emerald-50 transition-all duration-300 shadow-2xl hover:shadow-emerald-500/50 hover:scale-110 overflow-hidden"
         >
           <span className="relative z-10 flex items-center gap-3">
-            Access Dashboard
+            Login
             <svg
               className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300"
               fill="none"

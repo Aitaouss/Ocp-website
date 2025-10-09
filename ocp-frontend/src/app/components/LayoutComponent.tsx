@@ -42,11 +42,6 @@ export default function LayoutComponent({
       icon: <LayoutDashboard size={20} />,
     },
     {
-      name: "Fertilizer",
-      key: "ferrtilizer",
-      icon: <FlaskConical size={20} />,
-    },
-    {
       name: "Stocks",
       key: "stocks",
       icon: <Boxes size={20} />,
@@ -57,13 +52,8 @@ export default function LayoutComponent({
       icon: <ArrowLeftRight size={20} />,
     },
     {
-      name: "Vessel",
-      key: "vessell",
-      icon: <Ship size={20} />,
-    },
-    {
-      name: "Scenarios",
-      key: "scenarios",
+      name: "Chargement des navires",
+      key: "navires",
       icon: <Workflow size={20} />,
     },
     {

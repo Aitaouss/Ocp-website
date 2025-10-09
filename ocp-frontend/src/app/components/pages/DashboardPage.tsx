@@ -16,7 +16,6 @@ import {
 } from "../../DummyData";
 
 export default function Dashboard() {
-  // ✅ Find max values
   const filterMaxValueAcs = monthlyProductionACS.filter(
     (item) =>
       item.monthly === Math.max(...monthlyProductionACS.map((o) => o.monthly))
@@ -30,7 +29,6 @@ export default function Dashboard() {
       item.monthly === Math.max(...monthlyProductionACP54.map((o) => o.monthly))
   );
 
-  // ✅ Chart configuration
   const chartConfig = {
     monthly: {
       label: "Production mensuelle (T)",
@@ -38,7 +36,6 @@ export default function Dashboard() {
     },
   } satisfies ChartConfig;
 
-  // ✅ Array of max production cards
   const maxProductions = [
     {
       title: `Max ${filterMaxValueAcs[0].product}/m`,
@@ -48,11 +45,22 @@ export default function Dashboard() {
     { title: `Max ${MaxValueACP54[0].product}/m`, data: MaxValueACP54[0] },
   ];
 
-  // ✅ Array of charts
   const charts = [
-    { title: "Production ACS", data: monthlyProductionACS },
-    { title: "Production ACP29", data: monthlyProductionACP29 },
-    { title: "Production ACP54", data: monthlyProductionACP54 },
+    {
+      title: "Production ACS",
+      data: monthlyProductionACS,
+      maxValue: filterMaxValueAcs,
+    },
+    {
+      title: "Production ACP29",
+      data: monthlyProductionACP29,
+      maxValue: MaxValueACP29,
+    },
+    {
+      title: "Production ACP54",
+      data: monthlyProductionACP54,
+      maxValue: MaxValueACP54,
+    },
   ];
 
   return (
@@ -112,7 +120,11 @@ export default function Dashboard() {
                 <BarChart data={chart.data}>
                   <CartesianGrid vertical={false} />
                   <XAxis dataKey="site" tickLine={false} axisLine={false} />
-                  {/* <YAxis domain={[0, 5000]} tickLine={false} axisLine={false} /> */}
+                  <YAxis
+                    domain={[0, chart.maxValue[0].monthly + 1000]}
+                    tickLine={false}
+                    axisLine={false}
+                  />
                   <ChartTooltip content={<ChartTooltipContent />} />
                   <Bar dataKey="monthly" radius={6} fill="var(--primary)" />
                 </BarChart>
