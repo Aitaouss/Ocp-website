@@ -16,6 +16,7 @@ import {
 } from "../../DummyData";
 
 export default function Dashboard() {
+
   const filterMaxValueAcs = monthlyProductionACS.filter(
     (item) =>
       item.monthly === Math.max(...monthlyProductionACS.map((o) => o.monthly))

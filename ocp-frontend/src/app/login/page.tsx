@@ -2,21 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { authAPI } from "@/lib/api";
 
 export default function LoginPage() {
   const [hidePassword, setHidePassword] = useState(true);
   const [windowSize, setWindowSize] = useState(0);
-
-  useEffect(() => {
-    const startFetch = async () => {
-      const res = await fetch("http://localhost:5000/user");
-
-      const data = await res.json();
-
-      console.log(data);
-    };
-    startFetch();
-  }, [hidePassword]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     function handleResize() {
@@ -24,16 +18,28 @@ export default function LoginPage() {
     }
 
     window.addEventListener("resize", handleResize);
-
     handleResize();
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const infoLogin: { title: string; subtitle: string } = {
+  const infoLogin = {
     title: "Interface Supply Chain",
     subtitle:
       "Visualiser les résultats du modèle d’optimisation des plannings de production",
+  };
+
+  const handleLogin = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const data = await authAPI.login(email, password);
+      console.log("Login successful:", data);
+      window.location.href = "/dashboard";
+    } catch (err: any) {
+      setError(err.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,7 +58,7 @@ export default function LoginPage() {
         <div
           className={`w-full h-full ${
             windowSize > 390 ? "p-16" : "p-10"
-          }  sm:p-20 flex flex-col gap-10 justify-center`}
+          } sm:p-20 flex flex-col gap-10 justify-center`}
         >
           <div className="flex flex-col gap-2 ">
             <h1
@@ -81,6 +87,8 @@ export default function LoginPage() {
                   type="text"
                   placeholder="Enter your email or phone number"
                   className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:primary text-sm xl:text-base"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -90,6 +98,8 @@ export default function LoginPage() {
                   type={hidePassword ? "password" : "text"}
                   placeholder="Enter your password"
                   className="w-full mt-2 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:primary pr-12 text-sm xl:text-base"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                   type="button"
@@ -104,20 +114,24 @@ export default function LoginPage() {
                 </button>
               </div>
 
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
               <div className="w-full flex flex-col">
-                <button className="w-full bg-primary text-white p-3 rounded-full font-semibold hover:bg-primary/90 transition cursor-pointer mt-4 text-sm xl:text-base">
-                  Sign In
+                <button
+                  className="w-full bg-primary text-white p-3 rounded-full font-semibold hover:bg-primary/90 transition cursor-pointer mt-4 text-sm xl:text-base disabled:opacity-50"
+                  onClick={handleLogin}
+                  disabled={loading}
+                >
+                  {loading ? "Signing In..." : "Sign In"}
                 </button>
                 <div className="w-full flex items-center justify-between mt-4">
-                  <div className="flex items-center justify-between">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input type="checkbox" className="w-4 h-4" />
-                      <span className="text-xs xl:text-sm font-light">
-                        Remember me
-                      </span>
-                    </label>
-                  </div>
-                  <h1 className="text-xs xl:text-sm cursor-pointer hover:underline hover:text-primary transition inline-block self-end">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" className="w-4 h-4" />
+                    <span className="text-xs xl:text-sm font-light">
+                      Remember me
+                    </span>
+                  </label>
+                  <h1 className="text-xs xl:text-sm cursor-pointer hover:underline hover:text-primary transition">
                     Forgot password?
                   </h1>
                 </div>

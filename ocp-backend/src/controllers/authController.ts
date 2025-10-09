@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { db } from "../database/db";
 
 interface User {
@@ -12,13 +12,11 @@ interface User {
 }
 
 // Generate JWT Token
-const generateToken = (userId: number): string => {
+const generateToken = (userId: number, userRole: string): string => {
   const secret = process.env.JWT_SECRET || "default-secret";
-  const options: SignOptions = {
-    expiresIn: process.env.JWT_EXPIRE || "7d",
-  };
+  const expiresIn = Number(process.env.JWT_EXPIRE) || 7 * 24 * 60 * 60;
 
-  return jwt.sign({ id: userId }, secret, options);
+  return jwt.sign({ id: userId, role: userRole }, secret, { expiresIn });
 };
 
 // Login Controller
@@ -69,7 +67,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         }
 
         // Generate token
-        const token = generateToken(user.id);
+        const token = generateToken(user.id, user.role);
 
         // Cookie options
         const cookieExpire = parseInt(process.env.COOKIE_EXPIRE || "7");
@@ -161,7 +159,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             }
 
             // Generate token
-            const token = generateToken(this.lastID);
+            const token = generateToken(this.lastID, "user");
 
             // Cookie options
             const cookieExpire = parseInt(process.env.COOKIE_EXPIRE || "7");
