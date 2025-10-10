@@ -15,7 +15,6 @@ export const db = new sqlite3.Database(dbPath, (err) => {
 // Initialize database tables
 export const initializeDatabase = () => {
   db.serialize(() => {
-    // Create users table
     db.run(`
       CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
