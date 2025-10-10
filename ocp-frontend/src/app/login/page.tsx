@@ -24,11 +24,7 @@ export default function LoginPage() {
       }
     };
     startCheck();
-  });
-
-  if (loadingAuth) {
-    return <Loading />;
-  }
+  }, []);
 
   useEffect(() => {
     function handleResize() {
@@ -39,6 +35,10 @@ export default function LoginPage() {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (loadingAuth) {
+    return <Loading />;
+  }
 
   const infoLogin = {
     title: "Interface Supply Chain",
