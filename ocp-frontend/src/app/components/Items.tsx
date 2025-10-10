@@ -54,7 +54,7 @@ export default function Items() {
           {itemActive === "navires" && <NaviresPage />}
           {itemActive === "stocks" && <StockPage />}
           {itemActive === "transfers" && <TransferPage />}
-          {itemActive === "engrais" && <EngraisPage />}
+          {itemActive === "production-engrais" && <EngraisPage />}
         </div>
       </div>
     </>

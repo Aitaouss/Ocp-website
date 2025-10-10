@@ -16,7 +16,6 @@ import {
 } from "../../DummyData";
 
 export default function Dashboard() {
-
   const filterMaxValueAcs = monthlyProductionACS.filter(
     (item) =>
       item.monthly === Math.max(...monthlyProductionACS.map((o) => o.monthly))
@@ -76,7 +75,7 @@ export default function Dashboard() {
         {productionSummary.map((ac) => (
           <Card
             key={ac.name}
-            className="bg-gradient-to-b from-primary to-teal-900 text-center text-background shadow-lg"
+            className="bg-primary text-center text-background shadow-lg"
           >
             <CardHeader>
               <CardTitle className="text-xl font-semibold">
