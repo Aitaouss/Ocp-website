@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import { initializeDatabase, closeDatabase } from "./database/db";
+// import { initializeDatabase, closeDatabase } from "./database/db";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Initialize database
-initializeDatabase();
+// initializeDatabase();
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
@@ -57,7 +57,7 @@ const server = app.listen(PORT, () => {
 process.on("SIGINT", () => {
   console.log("\nShutting down gracefully...");
   server.close(() => {
-    closeDatabase();
+    // closeDatabase();
     process.exit(0);
   });
 });

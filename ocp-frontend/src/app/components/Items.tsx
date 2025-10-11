@@ -46,15 +46,25 @@ export default function Items() {
       </div>
       <div className="h-full bg-white flex-1 overflow-auto">
         <div className="min-h-full bg-[#F4F7FE]">
-          {itemActive === "dashboard" && <Dashboard />}
-          {itemActive === "production" && <ProductionPage />}
-          {itemActive === "production-acs" && <ProductionACSPage />}
-          {itemActive === "production-acp29" && <ProductionACP29Page />}
-          {itemActive === "production-acp54" && <ProductionACP54Page />}
-          {itemActive === "navires" && <NaviresPage />}
-          {itemActive === "stocks" && <StockPage />}
-          {itemActive === "transfers" && <TransferPage />}
-          {itemActive === "production-engrais" && <EngraisPage />}
+          {itemActive === "dashboard" ? (
+            <Dashboard />
+          ) : itemActive === "production" ? (
+            <ProductionPage />
+          ) : itemActive === "production-acs" ? (
+            <ProductionACSPage />
+          ) : itemActive === "production-acp29" ? (
+            <ProductionACP29Page />
+          ) : itemActive === "production-acp54" ? (
+            <ProductionACP54Page />
+          ) : itemActive === "navires" ? (
+            <NaviresPage />
+          ) : itemActive === "stocks" ? (
+            <StockPage />
+          ) : itemActive === "transfers" ? (
+            <TransferPage />
+          ) : itemActive === "production-engrais" ? (
+            <EngraisPage />
+          ) : null}
         </div>
       </div>
     </>

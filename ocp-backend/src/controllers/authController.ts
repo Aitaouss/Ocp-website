@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { db } from "../database/db";
 
 interface User {
   id: number;
@@ -33,68 +32,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Check if user exists
-    db.get(
-      "SELECT * FROM users WHERE email = ?",
-      [email],
-      async (err, user: User) => {
-        if (err) {
-          res.status(500).json({
-            success: false,
-            message: "Database error",
-            error: err.message,
-          });
-          return;
-        }
-
-        if (!user) {
-          res.status(401).json({
-            success: false,
-            message: "Invalid credentials",
-          });
-          return;
-        }
-
-        // Check password
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordValid) {
-          res.status(401).json({
-            success: false,
-            message: "Invalid credentials",
-          });
-          return;
-        }
-
-        // Generate token
-        const token = generateToken(user.id, user.role);
-
-        // Cookie options
-        const cookieExpire = parseInt(process.env.COOKIE_EXPIRE || "7");
-        const cookieOptions = {
-          expires: new Date(Date.now() + cookieExpire * 24 * 60 * 60 * 1000),
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "lax" as const,
-        };
-
-        // Send response with cookie
-        res
-          .status(200)
-          .cookie("token", token, cookieOptions)
-          .json({
-            success: true,
-            message: "Login successful",
-            user: {
-              id: user.id,
-              email: user.email,
-              phone: user.phone,
-              role: user.role,
-            },
-            token,
-          });
-      }
-    );
+    // TODO Check if user exists
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -118,78 +56,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Check if user already exists
-    db.get(
-      "SELECT * FROM users WHERE email = ?",
-      [email],
-      async (err, user) => {
-        if (err) {
-          res.status(500).json({
-            success: false,
-            message: "Database error",
-            error: err.message,
-          });
-          return;
-        }
-
-        if (user) {
-          res.status(400).json({
-            success: false,
-            message: "User already exists",
-          });
-          return;
-        }
-
-        // Hash password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        // Insert user
-        db.run(
-          "INSERT INTO users (email, password, phone) VALUES (?, ?, ?)",
-          [email, hashedPassword, phone || null],
-          function (err) {
-            if (err) {
-              res.status(500).json({
-                success: false,
-                message: "Error creating user",
-                error: err.message,
-              });
-              return;
-            }
-
-            // Generate token
-            const token = generateToken(this.lastID, "user");
-
-            // Cookie options
-            const cookieExpire = parseInt(process.env.COOKIE_EXPIRE || "7");
-            const cookieOptions = {
-              expires: new Date(
-                Date.now() + cookieExpire * 24 * 60 * 60 * 1000
-              ),
-              httpOnly: true,
-              secure: process.env.NODE_ENV === "production",
-              sameSite: "lax" as const,
-            };
-
-            // Send response with cookie
-            res
-              .status(201)
-              .cookie("token", token, cookieOptions)
-              .json({
-                success: true,
-                message: "User registered successfully",
-                user: {
-                  id: this.lastID,
-                  email,
-                  phone,
-                },
-                token,
-              });
-          }
-        );
-      }
-    );
+    // TODO Check if user already exists
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -224,32 +91,5 @@ export const getCurrentUser = (req: Request, res: Response): void => {
     });
     return;
   }
-
-  db.get(
-    "SELECT id, email, phone, role FROM users WHERE id = ?",
-    [userId],
-    (err, user) => {
-      if (err) {
-        res.status(500).json({
-          success: false,
-          message: "Database error",
-          error: err.message,
-        });
-        return;
-      }
-
-      if (!user) {
-        res.status(404).json({
-          success: false,
-          message: "User not found",
-        });
-        return;
-      }
-
-      res.status(200).json({
-        success: true,
-        user,
-      });
-    }
-  );
+  // TODO Fetch user from database
 };
